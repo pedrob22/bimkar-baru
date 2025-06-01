@@ -9,17 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void 
-    { 
-        Schema::create('periksas', function (Blueprint $table) { 
-            $table->id(); 
-            $table->foreignId('id_janji_periksa')->constrained('janji_periksas')->onDelete('cascade'); 
-            $table->dateTime('tgl_periksa'); 
-            $table->text('catatan'); 
-            $table->integer('biaya_periksa'); 
-            $table->timestamps(); 
-        }); 
-    } 
+    public function up(): void
+    {
+        Schema::create('periksas', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('id_janji_periksa')->constrained('janji_periksas')->onDelete('cascade');
+            $table->dateTime('tgl_periksa');
+            $table->text('catatan');
+            $table->integer('biaya_periksa');
+            $table->timestamps();
+        });
+    }
+
 
     /**
      * Reverse the migrations.
