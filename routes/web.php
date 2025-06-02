@@ -42,11 +42,5 @@ Route::middleware(['auth', 'role:dokter'])->prefix('dokter')->group(function () 
       Route::resource('obat', \App\Http\Controllers\Dokter\ObatController::class);
 });
 
-Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('pasien.dashboard');
-
-});
 
 require __DIR__ . '/auth.php';
