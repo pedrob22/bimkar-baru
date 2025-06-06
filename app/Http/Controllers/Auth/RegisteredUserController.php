@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
+
 
 class RegisteredUserController extends Controller
 {
@@ -46,8 +48,11 @@ class RegisteredUserController extends Controller
             'role' => $request->role ?? 'pasien', // default role pasien
         ]);
 
+        $user->no_rekam_medis = Carbon::now()->format('Ym') . '-' . $user->id;
+        $user->save();
         // Trigger event registered
         event(new Registered($user));
+        \Log::info('No RM Generated: ' . $user->no_rekam_medis);
 
         // Login otomatis
         Auth::login($user);

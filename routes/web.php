@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Dokter\JadwalPeriksaController;
 use App\Http\Controllers\Dokter\DokterController; // Jangan lupa import ini
+use App\Http\Controllers\Dokter\PeriksaController;
+use App\Http\Controllers\Pasien\{JanjiPeriksaController, PasienController};
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +18,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    Route::prefix('pasien')->name('pasien.')->group(function () {
+        Route::get('/janji-periksa', [JanjiPeriksaController::class, 'index'])->name('janji.index');
+        Route::post('/janji-periksa', [JanjiPeriksaController::class, 'store'])->name('janji.store');
+    });
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -32,6 +39,12 @@ Route::middleware(['auth', 'role:dokter'])->prefix('dokter')->group(function () 
         Route::get('/', [JadwalPeriksaController::class, 'index'])->name('dokter.jadwal-periksa.index');
         Route::post('/', [JadwalPeriksaController::class, 'store'])->name('dokter.jadwal-periksa.store');
         Route::patch('/{id}', [JadwalPeriksaController::class, 'update'])->name('dokter.jadwal-periksa.update');
+    });
+
+    Route::prefix('dokter')->name('dokter.')->group(function () {
+    Route::get('/periksa', [PeriksaController::class, 'index'])->name('periksa.index');
+    Route::get('/periksa/{id}/form', [PeriksaController::class, 'periksaForm'])->name('periksa.form');
+    Route::post('/periksa/{id}/simpan', [PeriksaController::class, 'simpan'])->name('periksa.simpan');
     });
 
     // Edit dan Update Data Dokter
