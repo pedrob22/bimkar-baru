@@ -2,7 +2,6 @@
     <x-slot name="header">
         <h4 class="font-semibold text-xl text-gray-800 leading-tight">Daftar Poli</h4>
     </x-slot>
-
     <div class="container mx-auto px-4 py-12  space-y-6 max-w-7xl ">
         <form method="POST" action="{{ route('pasien.janji.store') }}">
             @csrf

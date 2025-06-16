@@ -44,7 +44,9 @@ Route::middleware(['auth', 'role:dokter'])->prefix('dokter')->group(function () 
     Route::prefix('dokter')->name('dokter.')->group(function () {
     Route::get('/periksa', [PeriksaController::class, 'index'])->name('periksa.index');
     Route::get('/periksa/{id}/form', [PeriksaController::class, 'periksaForm'])->name('periksa.form');
-    Route::post('/periksa/{id}/simpan', [PeriksaController::class, 'simpan'])->name('periksa.simpan');
+    Route::post('/periksa/{id}', [PeriksaController::class, 'simpan'])->name('periksa.simpan');
+    Route::patch('/periksa/{id}', [PeriksaController::class, 'update'])->name('periksa.update');
+    Route::get('/periksa/{id}/edit', [PeriksaController::class, 'edit'])->name('periksa.edit');
     });
 
     // Edit dan Update Data Dokter
