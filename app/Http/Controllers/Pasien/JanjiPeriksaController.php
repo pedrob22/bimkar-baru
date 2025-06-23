@@ -15,11 +15,31 @@ class JanjiPeriksaController extends Controller
     {
         $jadwalList = JadwalPeriksa::with('dokter', 'poli')->get();
         $riwayat = JanjiPeriksa::with('jadwalPeriksa.dokter', 'jadwalPeriksa.poli' , 'pasien')
-            ->where('id_pasien', Auth::id())
+            ->where('id_pasien', Auth::id())->whereDoesntHave('periksa')
             ->get();
 
         return view('pasien.daftar-poli', compact('jadwalList', 'riwayat'));
     }
+    public function riwayat()
+    {   
+        $riwayat = JanjiPeriksa::with('jadwalPeriksa.dokter', 'jadwalPeriksa.poli', 'pasien')
+        ->where('id_pasien', Auth::id())
+        ->whereHas('periksa')  // only JanjiPeriksa that have related Periksa
+        ->get();
+
+        return view('pasien.riwayat.index', compact('riwayat'));
+    }
+
+    public function blmriwayat()
+    {   
+        $blmriwayat = JanjiPeriksa::with('jadwalPeriksa.dokter', 'jadwalPeriksa.poli', 'pasien')
+        ->where('id_pasien', Auth::id())
+        ->whereDoesntHave('periksa') // only JanjiPeriksa that have related Periksa
+        ->get();
+
+        return view('dashboard', compact('blmriwayat'));
+    }
+
 
     // Menyimpan janji periksa
     public function store(Request $request)

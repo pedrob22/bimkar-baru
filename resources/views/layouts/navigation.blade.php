@@ -29,6 +29,9 @@
                         <x-nav-link :href="route('pasien.janji.index')" :active="request()->routeIs('pasien.janji.*')">
                             Daftar Poli
                         </x-nav-link>
+                        <x-nav-link :href="route('pasien.riwayat.index')" :active="request()->routeIs('pasien.riwayat.index')">
+                            Riwayat Periksa
+                        </x-nav-link>
                     @endif
                 </div>
 

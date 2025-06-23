@@ -18,7 +18,7 @@ public function update(Request $request)
     $request->validate([
         'name' => 'required',
         'email' => 'required|email',
-        'spesialis' => 'required',
+        'poli' => 'required',
         'alamat' => 'required',
         'no_telp' => 'required',
     ]);

@@ -14,12 +14,12 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [JanjiPeriksaController::class, 'blmriwayat']
+    )->name('dashboard');
 
     Route::prefix('pasien')->name('pasien.')->group(function () {
         Route::get('/janji-periksa', [JanjiPeriksaController::class, 'index'])->name('janji.index');
+        Route::get('/riwayat-periksa', [JanjiPeriksaController::class, 'riwayat'])->name('riwayat.index');
         Route::post('/janji-periksa', [JanjiPeriksaController::class, 'store'])->name('janji.store');
     });
     
